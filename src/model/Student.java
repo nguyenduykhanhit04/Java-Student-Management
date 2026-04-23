@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.SQLOutput;
+
 /**
  * Đây là kế thừa.
  *
@@ -30,6 +32,13 @@ public class Student extends Person {
         this.gpa = gpa;
     }
 
+    public String getRank() {
+        if (gpa > 3.6) return "Xuất xắc";
+        else if (gpa > 3.2) return "Giỏi";
+        else if (gpa > 2.8) return "Khá";
+        else return "Trung bình";
+    }
+
     /**
      * Đây là annotation.
      * Nó báo rằng bạn đang ghi đè method từ class cha.
@@ -40,6 +49,8 @@ public class Student extends Person {
         System.out.println("Name: " + getName());
         System.out.println("Age: " + getAge());
         System.out.println("GPA: " + gpa);
+        System.out.println("Rank: " + getRank());
     }
+
 }
 
