@@ -48,6 +48,11 @@ public class StudentManager {
                 .findFirst();
     }
 
+    public Student findOrThrow(String id) throws StudentNotFoundException {
+        return findByIdOptional(id)
+                .orElseThrow(() -> new StudentNotFoundException("Khong tim thay ID: " + id));
+    }
+
     /**
      * duyệt list
      * tìm đúng id
@@ -63,6 +68,11 @@ public class StudentManager {
         return false;
     }
 
+    public void updateOrThrow(String id, Student newStudent) throws StudentNotFoundException {
+        Student old = findOrThrow(id);
+        students.set(students.indexOf(old), newStudent);
+    }
+
     /**
      * duyệt list
      * tìm đúng id
@@ -76,6 +86,11 @@ public class StudentManager {
             }
         }
         return false;
+    }
+
+    public void deleteOrThrow(String id) throws StudentNotFoundException {
+        Student student = findOrThrow(id);
+        students.remove(student);
     }
 
     public void getExcellentStudents() {
