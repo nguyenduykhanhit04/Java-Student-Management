@@ -15,13 +15,14 @@ import java.sql.SQLOutput;
 public class Student extends Person {
     private double gpa;
 
-    public Student(double gpa, String id, String name, int age) {
-        this.gpa = gpa;
+    public Student(String id, String name, int age, double gpa) {
         /**
          * Dùng để gọi constructor của class cha.
          * Vì id, name, age nằm ở Person, nên phải gọi super.
+         * Phải gọi super trước
          */
         super(id, name, age);
+        this.gpa = gpa;
     }
 
     public double getGpa() {

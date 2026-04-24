@@ -19,8 +19,15 @@ public class StudentManager {
         students = new ArrayList<>();
     }
 
-    public void addStudent(Student student) {
+    public boolean addStudent(Student student) {
+        for (Student s : students) {
+            if (s.getId().equalsIgnoreCase(student.getId())) {
+                System.out.println("ID is exists");
+                return false;
+            }
+        }
         students.add(student);
+        return true;
     }
 
     public void displayAllStudents() {
@@ -42,5 +49,35 @@ public class StudentManager {
             }
         }
         return null;
+    }
+
+    /**
+     * duyệt list
+     * tìm đúng id
+     * dùng .set() để thay thế object
+     */
+    public boolean updateStudent(String id, Student newStudent) {
+        for (int i = 0; i < students.size(); i++ ) {
+            if(students.get(i).getId().equalsIgnoreCase(id)) {
+                students.set(i, newStudent);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * duyệt list
+     * tìm đúng id
+     * dùng .remove() để xóa object
+     */
+    public boolean deleteStudent(String id) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equalsIgnoreCase(id)) {
+                students.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 }

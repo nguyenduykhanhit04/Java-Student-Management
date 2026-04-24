@@ -5,22 +5,33 @@ public class Main {
     public static void main(String[] args) {
         StudentManager manager = new StudentManager();
 
-        Student student1 = new Student(3.46, "S001", "Khanh", 21);
-        Student student2 = new Student(3.76, "S002", "Duy", 22);
+        manager.addStudent(new Student( "S001", "Khanh", 21, 3.46));
+        manager.addStudent(new Student( "S002", "Duy", 22, 3.76));
 
-        manager.addStudent(student1);
-        manager.addStudent(student2);
-
-        System.out.println("=== DANH SACH SINH VIEN ===");
+        System.out.println("Danh sach ban dau");
         manager.displayAllStudents();
 
-        System.out.println("=== TIM SINH VIEN THEO ID ===");
-        Student foundStudent = manager.findStudentById("S002");
+        // Update
+        System.out.println("Update SOO1");
+        boolean updated = manager.updateStudent("S001", new Student("S001", "Khanh updated", 21, 3.8));
+        System.out.println(updated ? "Update thanh cong" : "Update that bai");
 
-        if (foundStudent != null) {
-            foundStudent.displayInfo();
+        manager.displayAllStudents();
+
+        // Delete
+        System.out.println("Delete S002");
+        boolean deleted = manager.deleteStudent("S002");
+        System.out.println(deleted ? "Delete thanh cong" : "Delete that bai");
+        manager.displayAllStudents();
+
+        System.out.println("Tìm S001");
+        Student student = manager.findStudentById("S001");
+        if (student != null) {
+            System.out.println("----------------");
+            System.out.println("Thong tin cua student: ");
+            student.displayInfo();
         } else {
-            System.out.println("Khong tim thay sinh vien.");
+            System.out.println("Khong tim thay sinh vien");
         }
     }
 }
