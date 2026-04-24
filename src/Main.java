@@ -1,5 +1,7 @@
 import model.Student;
 import service.StudentManager;
+import java.util.Optional;
+import exception.StudentNotFoundException;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,23 +10,31 @@ public class Main {
         manager.addStudent(new Student("S001", "Khanh", 21, 3.46));
         manager.addStudent(new Student("S002", "Duy", 22, 3.76));
         manager.addStudent(new Student("S003", "Khanh2", 22, 3.56));
-        manager.addStudent(new Student("S004", "Khanh3", 23, 3.76));
-        manager.addStudent(new Student("S005", "Khanh4", 24, 3.86));
 
-        System.out.println("=== Tim S001 ===");
-
+        // 🔥 Optional (bạn đang dùng)
+        System.out.println("=== Optional ===");
         manager.findByIdOptional("S001")
                 .ifPresentOrElse(
                         Student::displayInfo,
                         () -> System.out.println("Khong tim thay")
                 );
 
-        System.out.println("=== Tim S999 ===");
+        // 🔥 Exception (thêm mới)
+        System.out.println("=== Exception ===");
+        try {
+            Student s = manager.findOrThrow("S001");
+            s.displayInfo();
+        } catch (StudentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
-        manager.findByIdOptional("S999")
-                .ifPresentOrElse(
-                        Student::displayInfo,
-                        () -> System.out.println("Khong tim thay")
-                );
+        // 🔥 Test lỗi
+        System.out.println("=== Test Exception (S999) ===");
+        try {
+            Student s = manager.findOrThrow("S999");
+            s.displayInfo();
+        } catch (StudentNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
