@@ -3,6 +3,8 @@ package service;
 import model.Student;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import exception.StudentNotFoundException;
 
 public class StudentManager {
     /**
@@ -40,13 +42,10 @@ public class StudentManager {
         }
     }
 
-    public Student findStudentById(String id) {
-        for (Student student : students) {
-            if (student.getId().equalsIgnoreCase(id)) {
-                return student;
-            }
-        }
-        return null;
+    public Optional<Student> findByIdOptional(String id) {
+        return students.stream()
+                .filter(s -> s.getId().equalsIgnoreCase(id))
+                .findFirst();
     }
 
     /**
