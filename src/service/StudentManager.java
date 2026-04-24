@@ -7,9 +7,7 @@ import java.util.List;
 public class StudentManager {
     /**
      * private List<Student> students;
-     *
      * Đây là nơi lưu toàn bộ sinh viên.
-     *
      * List là interface
      * ArrayList là class triển khai phổ biến nhất
      */
@@ -79,5 +77,28 @@ public class StudentManager {
             }
         }
         return false;
+    }
+
+    public void getExcellentStudents() {
+        students.stream()
+                .filter(s -> s.getGpa() >= 3.6)
+                .forEach(Student::displayInfo);
+    }
+
+    public Student findByIdStream(String id) {
+        return students.stream().filter(s -> s.getId().equalsIgnoreCase(id)).findFirst().orElse(null);
+    }
+
+    public void sortByGpaDesc() {
+        students.stream()
+                .sorted((s1, s2) -> Double.compare(s2.getGpa(), s1.getGpa()))
+                .forEach(Student::displayInfo);
+    }
+
+    public void top2Students() {
+        students.stream()
+                .sorted((s1, s2) -> Double.compare(s2.getGpa(), s1.getGpa()))
+                .limit(2)
+                .forEach(Student::displayInfo);
     }
 }
